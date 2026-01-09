@@ -11,4 +11,3 @@ RUN yarn
 RUN yarn build
 
 CMD yarn db:migrate && yarn start
-
