@@ -13,7 +13,9 @@
     "medusa"
   ],
   "scripts": {
+    "add:admin": "NODE_ENV=development medusa exec ./src/scripts/add-admin.ts",
     "build": "medusa build",
+    "cloud:preinstall": "medusa db:migrate",
     "seed": "medusa exec ./src/scripts/seed.ts",
     "start": "medusa start",
     "dev": "medusa develop",
