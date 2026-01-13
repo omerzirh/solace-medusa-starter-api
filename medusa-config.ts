@@ -29,25 +29,25 @@ const isStripeConfigured = Boolean(stripeApiKey) && Boolean(stripeWebhookSecret)
 // }
 
 const modules = {
-  // [Modules.FILE]: {
-  //   resolve: '@medusajs/medusa/file',
-  //   options: {
-  //     providers: [
-  //       {
-  //         resolve: '@medusajs/file-s3',
-  //         id: 's3',
-  //         options: {
-  //           file_url: process.env.DO_SPACE_URL,
-  //           access_key_id: process.env.DO_SPACE_ACCESS_KEY,
-  //           secret_access_key: process.env.DO_SPACE_SECRET_KEY,
-  //           region: process.env.DO_SPACE_REGION,
-  //           bucket: process.env.DO_SPACE_BUCKET,
-  //           endpoint: process.env.DO_SPACE_ENDPOINT
-  //         }
-  //       }
-  //     ]
-  //   }
-  // },
+  [Modules.FILE]: {
+    resolve: '@medusajs/medusa/file',
+    options: {
+      providers: [
+        {
+          resolve: '@medusajs/file-s3',
+          id: 's3',
+          options: {
+            file_url: process.env.DO_SPACE_URL,
+            access_key_id: process.env.DO_SPACE_ACCESS_KEY,
+            secret_access_key: process.env.DO_SPACE_SECRET_KEY,
+            region: process.env.DO_SPACE_REGION,
+            bucket: process.env.DO_SPACE_BUCKET,
+            endpoint: process.env.DO_SPACE_ENDPOINT
+          }
+        }
+      ]
+    }
+  },
   [Modules.NOTIFICATION]: {
     resolve: "@medusajs/medusa/notification",
     options: {
