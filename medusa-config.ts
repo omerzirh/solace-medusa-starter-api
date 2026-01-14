@@ -27,8 +27,21 @@ const isStripeConfigured = Boolean(stripeApiKey) && Boolean(stripeWebhookSecret)
 //     }
 //   };
 // }
+const testModules = [
+  {
+    resolve: '@medusajs/medusa/workflow-engine-inmemory'
+  },
+  {
+    resolve: '@medusajs/medusa/cache-inmemory',
+    options: {
+      redisUrl: process.env.REDIS_URL,
+      queueName: 'medusa-events'
+    }
+  }
+];
 
 const modules = {
+
   [Modules.FILE]: {
     resolve: '@medusajs/medusa/file',
     options: {
@@ -63,7 +76,10 @@ const modules = {
         },
       ],
     },
-  }
+  },
+  [Modules.INDEX]: {
+    resolve: "@medusajs/index",
+  },
 };
 
 module.exports = defineConfig({
@@ -79,7 +95,7 @@ module.exports = defineConfig({
       authCors: process.env.AUTH_CORS,
       jwtSecret: process.env.JWT_SECRET || 'supersecret',
       cookieSecret: process.env.COOKIE_SECRET || 'supersecret'
-    }
+    },
   },
   modules: {
     ...dynamicModules,
