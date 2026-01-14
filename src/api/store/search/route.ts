@@ -63,7 +63,7 @@ export const GET = async (
 
   const { data: products, metadata } = await query.index({
     entity: 'product',
-    fields: req.listConfig.select,
+    fields: req.queryConfig.fields,
     filters,
     pagination: {
       skip: offset,
