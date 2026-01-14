@@ -1,6 +1,7 @@
 import { MedusaRequest, MedusaResponse } from '@medusajs/framework';
 import { StoreSearchProductsParamsType } from './validators';
 import { ContainerRegistrationKeys } from '@medusajs/framework/utils';
+import { QueryContext } from '@medusajs/utils';
 
 export const GET = async (
   req: MedusaRequest<StoreSearchProductsParamsType>,
@@ -17,6 +18,8 @@ export const GET = async (
     materials,
     min_price,
     max_price,
+    region_id,
+    currency_code
   } = req.validatedQuery;
 
   const query = req.scope.resolve(ContainerRegistrationKeys.QUERY);
@@ -68,8 +71,21 @@ export const GET = async (
     pagination: {
       skip: offset,
       take: limit,
-      order: order === 'relevance' ? undefined : {
-        [order.startsWith('-') ? order.slice(1) : order]: order.startsWith('-') ? 'DESC' : 'ASC'
+      order:
+        order === 'relevance'
+          ? undefined
+          : {
+              [order.startsWith('-') ? order.slice(1) : order]: order.startsWith('-')
+                ? 'DESC'
+                : 'ASC'
+            }
+    },
+    context: {
+      variants: {
+        calculated_price: QueryContext({
+          region_id: region_id,
+          currency_code: currency_code
+        })
       }
     }
   });
