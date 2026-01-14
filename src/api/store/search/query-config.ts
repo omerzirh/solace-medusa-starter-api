@@ -28,6 +28,7 @@ export const defaultStoreSearchProductFields = [
   '*variants',
   '*variants.options',
   '*variants.prices',
+  '*variants.calculated_price',
 ];
 
 export const listProductQueryConfig = {
