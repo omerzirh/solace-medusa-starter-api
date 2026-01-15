@@ -9,36 +9,25 @@ const stripeWebhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
 const isStripeConfigured = Boolean(stripeApiKey) && Boolean(stripeWebhookSecret);
 
-// if (isStripeConfigured) {
-//   console.log('Stripe API key and webhook secret found. Enabling payment module');
-//   dynamicModules[Modules.PAYMENT] = {
-//     resolve: '@medusajs/medusa/payment',
-//     options: {
-//       providers: [
-//         {
-//           resolve: '@medusajs/medusa/payment-stripe',
-//           id: 'stripe',
-//           options: {
-//             apiKey: stripeApiKey,
-//             webhookSecret: stripeWebhookSecret
-//           }
-//         }
-//       ]
-//     }
-//   };
-// }
-const testModules = [
-  {
-    resolve: '@medusajs/medusa/workflow-engine-inmemory'
-  },
-  {
-    resolve: '@medusajs/medusa/cache-inmemory',
+if (isStripeConfigured) {
+  console.log('Stripe API key and webhook secret found. Enabling payment module');
+  dynamicModules[Modules.PAYMENT] = {
+    resolve: '@medusajs/medusa/payment',
     options: {
-      redisUrl: process.env.REDIS_URL,
-      queueName: 'medusa-events'
+      providers: [
+        {
+          resolve: '@medusajs/medusa/payment-stripe',
+          id: 'stripe',
+          options: {
+            apiKey: stripeApiKey,
+            webhookSecret: stripeWebhookSecret
+          }
+        }
+      ]
     }
-  }
-];
+  };
+}
+
 
 const modules = {
 

@@ -16,8 +16,8 @@ export const GET = async (
     category_id,
     type_id,
     materials,
-    min_price,
-    max_price,
+    price_from,
+    price_to,
     region_id,
     currency_code
   } = req.validatedQuery;
@@ -48,19 +48,19 @@ export const GET = async (
     filters.material = materials;
   }
 
-  if (min_price !== undefined || max_price !== undefined) {
+  if (price_from !== undefined || price_to !== undefined) {
     filters.variants = {
       prices: {
         amount: {}
       }
     };
 
-    if (min_price !== undefined) {
-      filters.variants.prices.amount["$gte"] = min_price;
+    if (price_from !== undefined) {
+      filters.variants.prices.amount['$gte'] = price_from;
     }
 
-    if (max_price !== undefined) {
-      filters.variants.prices.amount["$lte"] = max_price;
+    if (price_to !== undefined) {
+      filters.variants.prices.amount['$lte'] = price_to;
     }
   }
 
