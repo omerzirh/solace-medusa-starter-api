@@ -8,6 +8,7 @@ export const StoreSearchProductsParams = createFindParams({
   z.object({
     q: z.string().optional(),
     currency_code: z.string(),
+    region_id: z.string(),
     collection_id: z.array(z.string()).optional(),
     category_id: z.array(z.string()).optional(),
     type_id: z.array(z.string()).optional(),

@@ -9,26 +9,28 @@ const stripeWebhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
 const isStripeConfigured = Boolean(stripeApiKey) && Boolean(stripeWebhookSecret);
 
-// if (isStripeConfigured) {
-//   console.log('Stripe API key and webhook secret found. Enabling payment module');
-//   dynamicModules[Modules.PAYMENT] = {
-//     resolve: '@medusajs/medusa/payment',
-//     options: {
-//       providers: [
-//         {
-//           resolve: '@medusajs/medusa/payment-stripe',
-//           id: 'stripe',
-//           options: {
-//             apiKey: stripeApiKey,
-//             webhookSecret: stripeWebhookSecret
-//           }
-//         }
-//       ]
-//     }
-//   };
-// }
+if (isStripeConfigured) {
+  console.log('Stripe API key and webhook secret found. Enabling payment module');
+  dynamicModules[Modules.PAYMENT] = {
+    resolve: '@medusajs/medusa/payment',
+    options: {
+      providers: [
+        {
+          resolve: '@medusajs/medusa/payment-stripe',
+          id: 'stripe',
+          options: {
+            apiKey: stripeApiKey,
+            webhookSecret: stripeWebhookSecret
+          }
+        }
+      ]
+    }
+  };
+}
+
 
 const modules = {
+
   [Modules.FILE]: {
     resolve: '@medusajs/medusa/file',
     options: {
@@ -63,7 +65,10 @@ const modules = {
         },
       ],
     },
-  }
+  },
+  [Modules.INDEX]: {
+    resolve: "@medusajs/index",
+  },
 };
 
 module.exports = defineConfig({
@@ -79,7 +84,7 @@ module.exports = defineConfig({
       authCors: process.env.AUTH_CORS,
       jwtSecret: process.env.JWT_SECRET || 'supersecret',
       cookieSecret: process.env.COOKIE_SECRET || 'supersecret'
-    }
+    },
   },
   modules: {
     ...dynamicModules,

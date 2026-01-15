@@ -5,8 +5,10 @@ import { listProductQueryConfig } from './query-config';
 
 export const storeSearchRoutesMiddlewares: MiddlewareRoute[] = [
   {
-    method: ['GET'],
+    methods: ['GET'],
     matcher: '/store/search',
-    middlewares: [validateAndTransformQuery(StoreSearchProductsParams, listProductQueryConfig)]
+    middlewares: [
+      validateAndTransformQuery(StoreSearchProductsParams, listProductQueryConfig),
+    ]
   }
 ];
