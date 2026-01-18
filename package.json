@@ -14,7 +14,7 @@
   ],
   "scripts": {
     "add:admin": "NODE_ENV=development medusa exec ./src/scripts/add-admin.ts",
-    "build": "medusa build",
+    "build": "medusa build && mkdir -p public && rm -rf public/admin && cp -r .medusa/server/public/admin public/admin",
     "seed": "medusa exec ./src/scripts/seed.ts",
     "start": "medusa start",
     "dev": "medusa develop",
