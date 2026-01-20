@@ -71,7 +71,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
           name: 'Europe',
           currency_code: 'eur',
           countries,
-          payment_providers: ['pp_system_default']
+          payment_providers: ['pp_system_default', 'pp_stripe_stripe']
         }
       ]
     }
@@ -82,7 +82,8 @@ export default async function seedDemoData({ container }: ExecArgs) {
   logger.info('Seeding tax regions...');
   await createTaxRegionsWorkflow(container).run({
     input: countries.map((country_code) => ({
-      country_code
+      country_code,
+      provider_id: 'tp_system'
     }))
   });
   logger.info('Finished seeding tax regions.');
@@ -327,6 +328,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
       products: [
         {
           title: 'Medusa T-Shirt',
+          shipping_profile_id: shippingProfile.id,
           category_ids: getCategoryIdsByName('Shirts'),
           description:
             'Reimagine the feeling of a classic T-shirt. With our cotton T-shirts, everyday essentials no longer have to be ordinary.',
@@ -511,6 +513,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
         },
         {
           title: 'Medusa Sweatshirt',
+          shipping_profile_id: shippingProfile.id,
           category_ids: getCategoryIdsByName('Sweatshirts'),
           description:
             'Reimagine the feeling of a classic sweatshirt. With our cotton sweatshirt, everyday essentials no longer have to be ordinary.',
@@ -609,6 +612,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
         },
         {
           title: 'Medusa Sweatpants',
+          shipping_profile_id: shippingProfile.id,
           category_ids: getCategoryIdsByName('Pants'),
           description:
             'Reimagine the feeling of classic sweatpants. With our cotton sweatpants, everyday essentials no longer have to be ordinary.',
@@ -707,6 +711,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
         },
         {
           title: 'Medusa Shorts',
+          shipping_profile_id: shippingProfile.id,
           category_ids: getCategoryIdsByName('Merch'),
           description:
             'Reimagine the feeling of classic shorts. With our cotton shorts, everyday essentials no longer have to be ordinary.',
